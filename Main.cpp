@@ -58,39 +58,87 @@ bool removerComputador(Computador computadores[], int& quantidade, const string&
     return true;
 }
 
+void listarComputadores(Computador computadores[], int quantidade) {
+    if (quantidade == 0) {
+        cout << "\nNenhum computador cadastrado.\n";
+        return;
+    }
+
+    for (int i = 0; i < quantidade; i++) {
+        cout << "\n========== COMPUTADOR " << i + 1 << "==========\n";
+        computadores[i].printDados();
+        cout << "\n";
+    }
+}
+
 int main() {
     Computador computadores[CAPACIDADE];
     int quantidade = 0;
+    int opcao;
 
-    for (int i = 0; i < 3; i++) {
-        cout << "\n========== CADASTRO " << i + 1 << " ==========\n";
+    do {
+        cout << "\n=================================";
+        cout << "\n\tSISTEMA DE COMPUTADORES";
+        cout << "\n=================================";
+        cout << "\n1 - Cadastrar computador";
+        cout << "\n2 - Consultar computador";
+        cout << "\n3 - Listar computadores";
+        cout << "\n4 - Remover computador";
+        cout << "\n0 - Sair";
+        cout << "\n\nEscolha uma opcao: ";
+        cin >> opcao;
 
-        Computador computador = cadastrarComputador();
+        switch (opcao) {
+            case 1: {
+                Computador computador = cadastrarComputador();
 
-        if (inserirComputador(computadores, quantidade, computador)) {
-            cout << "\nComputador inserido com sucesso.\n";
+                if (inserirComputador(computadores, quantidade, computador)) {
+                    cout << "\nComputador cadastrado com sucesso.\n";
+                } else {
+                    cout << "\nNao foi possivel cadastrar o computador.\n";
+                }
+                break;
+            }
+
+            case 2: {
+                string codigo;
+
+                cout << "\nDigite o codigo do computador: ";
+                getline(cin >> ws, codigo);
+
+                if (!consultarComputador(computadores, quantidade, codigo)) {
+                    cout << "\nComputador nao encontrado.\n";
+                }
+                break;
+            }
+            
+            case 3: {
+                listarComputadores(computadores, quantidade);
+                break;
+            }
+
+            case 4: {
+                string codigo;
+
+                cout << "\nDigite o codigo do computador que deseja remover: ";
+                getline(cin >> ws, codigo);
+
+                if (removerComputador(computadores, quantidade, codigo)) {
+                    cout << "\nComptuador removido com sucesso.\n";
+                } else {
+                    cout << "\nComputador nao encontrado.\n";
+                }
+                break;
+            }
+
+            case 0:
+                cout << "\nEncerrando o programa...\n";
+                break;
+
+            default:
+                cout << "\nOpcao invalida.\n";
         }
-    }
-
-    string codigo;
-
-    cout << "\nDigite o codigo do computador que deseja remover: ";
-    getline(cin >> ws, codigo);
-
-    if (removerComputador(computadores, quantidade, codigo)) {
-        cout << "\nComputador removido com sucesso.\n";
-    } else {
-        cout << "\nComputador nao encontrado.\n";
-    }
-
-    cout << "\nQuantidade de computadores: " << quantidade << "\n";
-
-    cout << "\nDigite o codigo do computador que deseja consultar: ";
-    getline(cin >> ws, codigo);
-
-    if (!consultarComputador(computadores, quantidade, codigo)) {
-        cout << "\nComputador nao encontrado.\n";
-    }
+    } while (opcao != 0);
 
     return 0;
 }
