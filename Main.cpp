@@ -1,0 +1,5 @@
+#include "Computador.h"
+
+int main() {
+    return 0;
+}
