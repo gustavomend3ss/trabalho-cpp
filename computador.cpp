@@ -109,8 +109,7 @@ int main(){
                     Computador.at(a).print_dados();
                     cout << "\n\nDigite os novos dados:";
                     Computador.at(a).set_dados();
-                    enc = 1;
-                    break;                   
+                    enc = 1;                   
                 }
             }
             if(enc == 1)
@@ -142,7 +141,54 @@ int main(){
             else
                 cout << "\nOpção inválida!\n";
         }
-        
-    }
+        else if(op==4){
+            if(Computador.empty())
+                cout << "\nNenhum computador cadastrado.\n";
+            else{
+                cout << "\n------------------------ RELATÓRIO ------------------------\n";
+                for(int a = 0; a < Computador.size(); a++){
+                    cout << "\nPos.: " << a;
+                    Computador.at(a).print_dados();
+                    cout << "\n";
+                }
+                cout << "\nTotal de computadores cadastrados: " << Computador.size() << "\n";
+            }
+        }
+        else if(op==5){
+            tamanho = Computador.size();
+            for(int a = 0; a < tamanho; a++)
+                cout << "\nPos.: " << a << "\t" << Computador.at(a).ret_nome();
+            cout << "\n\nDigite a posição a ser incluído (0 a " << tamanho << "): ";
+            cin >> p;
+            if(p>=0 and p<=tamanho){
+                temp.set_dados();
+                Computador.insert(Computador.begin()+p, temp);
+                cout << "\nComputador inserido na posição " << p << "!\n";
+            }
+            else
+                cout << "\nPosição inválida!\n";
+        }
+        else if(op==6){
+            cout << "\nDigite o código do computador a ser removido: ";
+            getline(cin>>ws,busca);
+            enc = 0;
+            for(int a = 0; a < Computador.size(); a++){
+                if(busca==Computador.at(a).ret_codigo()){
+                    Computador.erase(Computador.begin()+a);
+                    enc = 1;
+                }
+            }
+            if(enc==1)
+                cout << "\nComputador removido.";
+            else
+                cout << "\nNão encontrado";
+        }
+        else if(op!=0)
+            cout << "\nOpção inválida!\n";
+    }while(op!=0);
+
+    cout <<"\n\n";
+
+    return 0;
 
 }
