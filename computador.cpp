@@ -22,7 +22,7 @@ class Computadores{
         void set_dados(){
             cout << "\nCódigo: ";
             getline(cin>>ws, cod);
-            cout << "\nNome: ";
+            cout << "\nModelo: ";
             getline(cin>>ws, nome);
             cout << "\nMarca: ";
             getline(cin>>ws, marca);
@@ -74,6 +74,7 @@ class Computadores{
 };
 
 int main(){
+
     Computadores temp;
     vector<Computadores> Computador;
     int op, tamanho, p, tipo, rep, enc;
@@ -147,7 +148,7 @@ int main(){
             else{
                 cout << "\n------------------------ RELATÓRIO ------------------------\n";
                 for(int a = 0; a < Computador.size(); a++){
-                    cout << "\nPos.: " << a;
+                    cout << "\nPos.: " << a + 1;
                     Computador.at(a).print_dados();
                     cout << "\n";
                 }
@@ -157,13 +158,13 @@ int main(){
         else if(op==5){
             tamanho = Computador.size();
             for(int a = 0; a < tamanho; a++)
-                cout << "\nPos.: " << a << "\t" << Computador.at(a).ret_nome();
-            cout << "\n\nDigite a posição a ser incluído (0 a " << tamanho << "): ";
-            cin >> p;
+                cout << "\nPos.: " << a + 1 << "\t" << Computador.at(a).ret_nome();
+                cout << "\n\nDigite a posição a ser incluído (1 a " << tamanho << "): ";
+                cin >> p;
             if(p>=0 and p<=tamanho){
                 temp.set_dados();
-                Computador.insert(Computador.begin()+p, temp);
-                cout << "\nComputador inserido na posição " << p << "!\n";
+                Computador.insert(Computador.begin()+(p-1), temp);
+                cout << "\nComputador inserido na posição " << p  << "!\n";
             }
             else
                 cout << "\nPosição inválida!\n";
