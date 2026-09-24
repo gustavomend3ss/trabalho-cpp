@@ -1,13 +1,13 @@
 #pragma once
-
+using namespace std;
 #include <string>
 
 class Computador {
 private:
-    std::string cod;
-    std::string nome;
-    std::string marca;
-    std::string processador;
+    string cod;
+    string nome;
+    string marca;
+    string processador;
     int memoria;
     int arm;
     int quant;
@@ -19,10 +19,10 @@ public:
     void setDados();
     void printDados();
 
-    std::string retCodigo();
-    std::string retNome();
-    std::string retMarca();
-    std::string retProcessador();
+    string retCodigo();
+    string retNome();
+    string retMarca();
+    string retProcessador();
     int retMemoria();
     int retArmazenamento();
     double retPreco();
