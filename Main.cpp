@@ -35,17 +35,55 @@ bool consultarComputador(Computador computadores[], int quantidade, const string
     return false;
 }
 
+bool removerComputador(Computador computadores[], int& quantidade, const string& codigo) {
+    int posicao = -1;
+
+    for (int i = 0; i < quantidade; i++) {
+        if (computadores[i].retCodigo() == codigo) {
+            posicao = i;
+            break;
+        }
+    }
+
+    if (posicao == -1) {
+        return false;
+    }
+
+    for (int i = posicao; i < quantidade - 1; i++) {
+        computadores[i] = computadores[i + 1];
+    }
+
+    quantidade--;
+
+    return true;
+}
+
 int main() {
     Computador computadores[CAPACIDADE];
     int quantidade = 0;
 
-    Computador computador = cadastrarComputador();
+    for (int i = 0; i < 3; i++) {
+        cout << "\n========== CADASTRO " << i + 1 << " ==========\n";
 
-    if (inserirComputador(computadores, quantidade, computador)) {
-        cout << "\nComputador inserido com sucesso.\n";
-    } 
+        Computador computador = cadastrarComputador();
+
+        if (inserirComputador(computadores, quantidade, computador)) {
+            cout << "\nComputador inserido com sucesso.\n";
+        }
+    }
 
     string codigo;
+
+    cout << "\nDigite o codigo do computador que deseja remover: ";
+    getline(cin >> ws, codigo);
+
+    if (removerComputador(computadores, quantidade, codigo)) {
+        cout << "\nComputador removido com sucesso.\n";
+    } else {
+        cout << "\nComputador nao encontrado.\n";
+    }
+
+    cout << "\nQuantidade de computadores: " << quantidade << "\n";
 
     cout << "\nDigite o codigo do computador que deseja consultar: ";
     getline(cin >> ws, codigo);
